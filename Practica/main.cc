@@ -1,6 +1,7 @@
 #include <iostream>
 #include "ABE.h"
 #include "ABB.h"
+#include "AVL.h"
 
 using Key = int;
 
@@ -11,6 +12,7 @@ int main() {
     while (opcion != 1 && opcion != 2) {
         std::cout << "1 -> ABE (Árbol Binario Equilibrado)" << std::endl;
         std::cout << "2 -> ABB (Árbol Binario de Búsqueda)" << std::endl;
+        std::cout << "3 -> AVL" << std::endl;
         std::cout << "¿Qué tipo de árbol desea?: ";
         std::cin >> opcion;
         std::cout << std::endl;
@@ -25,6 +27,10 @@ int main() {
 
     case 2:
         arbol = new ABB<Key>;
+        break;
+
+    case 3:
+        arbol = new AVL<Key>;
         break;
     
     default:

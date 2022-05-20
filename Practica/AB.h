@@ -42,7 +42,8 @@ class AB {
 
         int AltN(NodoB<Key> *nodo);
         int Alt();
-        
+
+        NodoB<Key>* &raiz() {return raiz_;}        
 
     private:
         NodoB<Key> *raiz_;

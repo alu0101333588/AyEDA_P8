@@ -4,6 +4,8 @@
 #include <iostream>
 #include <fstream>
 
+#include "NodoAVL.h"
+
 
 template<class Key>
 class ABB : public AB<Key> {
@@ -17,6 +19,9 @@ class ABB : public AB<Key> {
         void sustituir (NodoB<Key>* &eliminado, NodoB<Key>* &sustituto);
         bool balanceado();
         bool balanceadoRama(NodoB<Key> *nodo);
+
+    protected:
+        NodoAVL<Key>* &raiz() {return reinterpret_cast<NodoAVL<Key>*&>(AB<Key>::raiz());}
 };
 
 template<class Key>
@@ -96,7 +101,6 @@ bool ABB<Key>::insertar (const Key& k) {
     if (buscar(k)) {
         return false;
     }
-    //insertarEquilRama(k, AB<Key>::getRaiz());
     if (AB<Key>::getRaiz() == NULL) {
         AB<Key>::setRaiz3(k);
     } else {
@@ -107,8 +111,6 @@ bool ABB<Key>::insertar (const Key& k) {
 
 template<class Key>
 void ABB<Key>::insertarEquilRama(const Key& k, NodoB<Key> *nodo) {
-    //int tam_izq = AB<Key>::Tamano(nodo->getNodoIzq());
-    //int tam_der = AB<Key>::Tamano(nodo->getNodoDer());
 
     if (nodo == NULL) {
         nodo = new NodoB<Key> (k);
@@ -150,18 +152,6 @@ bool ABB<Key>::busqueda (const Key& k, NodoB<Key> *nodo) {
         return busqueda(k, nodo->getNodoIzq());
     }
     return busqueda(k, nodo->getNodoDer());
-
-
-    /*if (k == nodo->getDato()) {
-        return true;
-    } else {
-        if (busqueda(k, nodo->getNodoIzq())){
-            return true;
-        } else {
-            return busqueda(k, nodo->getNodoDer());
-        }
-    }
-    return false;*/
 }
 
 

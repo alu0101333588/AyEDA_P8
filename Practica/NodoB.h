@@ -13,6 +13,7 @@ class NodoB {
         NodoB* &getNodoDer() {return dcho_;}
 
         Key getDato() {return dato_;}
+        Key* &Dato() {return dato_;}
 
         void setNodo(NodoB* nodo);
 
