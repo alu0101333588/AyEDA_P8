@@ -4,13 +4,16 @@
 template<class Key>
 class NodoB {
     public:
-        NodoB (const Key& dat, NodoB *izq = NULL, NodoB *der = NULL) : dato_(dat), izdo_(izq), dcho_(der) {}
-
+        NodoB (const Key& dat, NodoB<Key> *izq = NULL, NodoB<Key> *der = NULL) : dato_(dat), izdo_(izq), dcho_(der) {}
+        ~NodoB(){};
         // NodoB<Key> *nodo,
         //NodoB* setNodo2(Key valor);
 
         NodoB* &getNodoIzq() {return izdo_;}
         NodoB* &getNodoDer() {return dcho_;}
+
+        NodoB* &NodoIzq() {return izdo_;}
+        NodoB* &NodoDer() {return dcho_;}
 
         Key getDato() {return dato_;}
         Key* &Dato() {return dato_;}

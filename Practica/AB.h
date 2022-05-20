@@ -37,7 +37,7 @@ class AB {
         void setRaiz(NodoB<Key> raiz) {raiz_ = raiz;}
         
         NodoB<Key> getRaiz2() {return raiz_;}
-        NodoB<Key> getRaiz2() const {return raiz_;}
+        //NodoB<Key> getRaiz2() const {return raiz_;}
         int Nivel (NodoB<Key> *nodo);
 
         int AltN(NodoB<Key> *nodo);

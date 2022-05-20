@@ -7,9 +7,12 @@ using Key = int;
 
 int main() {
     int opcion = -1;
+    int opcion_especial = 0;
     AB<Key>* arbol;
+    //AVL<Key>* arbol;
+    //arbol = new AVL<Key>;
 
-    while (opcion != 1 && opcion != 2) {
+    while (opcion != 1 && opcion != 2 && opcion != 3) {
         std::cout << "1 -> ABE (Árbol Binario Equilibrado)" << std::endl;
         std::cout << "2 -> ABB (Árbol Binario de Búsqueda)" << std::endl;
         std::cout << "3 -> AVL" << std::endl;
@@ -22,15 +25,23 @@ int main() {
 
     switch (opcion) {
     case 1:
+        //AB<Key>* arbol;
         arbol = new ABE<Key>;
+        //std::cout << "nada" << std::endl;
         break;
 
     case 2:
+        //AB<Key>* arbol;
         arbol = new ABB<Key>;
+        //std::cout << "nada" << std::endl;
         break;
 
     case 3:
+        //AVL<Key>* arbol1;
         arbol = new AVL<Key>;
+        //arbol = arbol1;
+        std::cout << "PRUEBA. Se ha creado un AVL " << std::endl;
+        opcion_especial = 1;
         break;
     
     default:
@@ -66,7 +77,7 @@ int main() {
                 //arbol->Imprimir();
             } else {
                 std::cout << "ELEMENTO REPETIDO" << std::endl;
-            }
+            } 
             break;
 
         case 2: 
