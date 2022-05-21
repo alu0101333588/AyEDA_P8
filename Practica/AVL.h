@@ -6,6 +6,8 @@
 #include "NodoAVL.h"
 #define traza
 
+template<class Key>
+class ABB;
 
 template<class Key>
 class AVL : public ABB<Key> {
@@ -14,10 +16,10 @@ class AVL : public ABB<Key> {
         //AVL () : ABB<Key>() {}
         AVL(NodoAVL<Key> *raiz) : ABB<Key>(raiz) {}
         ~AVL(){};
-        bool insertar (Key& k);
+        bool insertar (const Key& k);
         void Insertar_Balanceo(NodoAVL<Key>* &nodo, NodoAVL<Key>* nuevo, bool& crece);
-        void insert_re_balanceo_dcha(NodoAVL<Key>* &nodo);
-        void insert_re_balanceo_izda(NodoAVL<Key>* &nodo);
+        void insert_re_balanceo_dcha(NodoAVL<Key>* &nodo, bool& crece);
+        void insert_re_balanceo_izda(NodoAVL<Key>* &nodo, bool& crece);
         bool eliminar (Key k);
         void elimina_rama(NodoAVL<Key>* &nodo, Key k, bool& decrece);
         void sustituye(NodoAVL<Key>* &eliminado, NodoAVL<Key>* &sust, bool& decrece);
@@ -71,7 +73,7 @@ void AVL<Key>::rotacion_DD (NodoAVL<Key>* &nodo) {
     std::cout << "Rotación DD en [" << nodo->getDato() << "]" << std::endl;
     #endif
 
-    NodoAVL<Key>* nodo1 = nodo->NodoIzq();
+    NodoAVL<Key>* nodo1 = nodo->NodoDer();
     nodo->NodoDer() = nodo1->NodoIzq();
     nodo1->NodoIzq() = nodo;
     if (nodo1->Balance() == -1) {
@@ -147,10 +149,8 @@ void AVL<Key>::rotacion_DI (NodoAVL<Key>* &nodo) {
 }
 
 template<class Key>
-bool AVL<Key>::insertar (Key& k) {
+bool AVL<Key>::insertar (const Key& k) {
     
-    std::cout << "PRUEBA " << "NIVEL AVL" << std::endl;
-
     if (ABB<Key>::buscar(k)) {
         return false;
     }
@@ -164,24 +164,23 @@ bool AVL<Key>::insertar (Key& k) {
 template<class Key>
 void AVL<Key>::Insertar_Balanceo(NodoAVL<Key>* &nodo, NodoAVL<Key>* nuevo, bool& crece){
     if (nodo == NULL) {
-        nodo = nuevo;
+        nodo = new NodoAVL<Key> (nuevo->getDato());
         crece = true;
     } else if (nuevo->getDato() < nodo->getDato()) {
         Insertar_Balanceo(nodo->NodoIzq(), nuevo, crece);
         if (crece) {
-            insert_re_balanceo_izda(nodo);
-        } else {
-            Insertar_Balanceo(nodo->NodoDer(), nuevo, crece);
-            if (crece) {
-                insert_re_balanceo_dcha(nodo);
-            }
+            insert_re_balanceo_izda(nodo, crece);
+        } 
+    } else {
+        Insertar_Balanceo(nodo->NodoDer(), nuevo, crece);
+        if (crece) {
+            insert_re_balanceo_dcha(nodo, crece);
         }
     }
 }
 
 template<class Key>
-void AVL<Key>::insert_re_balanceo_izda(NodoAVL<Key>* &nodo) {
-    bool crece;
+void AVL<Key>::insert_re_balanceo_izda(NodoAVL<Key>* &nodo, bool& crece) {
     switch(nodo->Balance()) {
         case -1:
             nodo->Balance() = 0;
@@ -198,16 +197,16 @@ void AVL<Key>::insert_re_balanceo_izda(NodoAVL<Key>* &nodo) {
                 rotacion_II(nodo);
             } else {
                 rotacion_ID(nodo);
-                crece = false;
+                
             } 
+            crece = false;
             break;
     }
 
 }
 
 template<class Key>
-void AVL<Key>::insert_re_balanceo_dcha(NodoAVL<Key>* &nodo) {
-    bool crece;
+void AVL<Key>::insert_re_balanceo_dcha(NodoAVL<Key>* &nodo, bool& crece) {
     switch(nodo->Balance()) {
         case 1:
             nodo->Balance() = 0;
@@ -224,8 +223,9 @@ void AVL<Key>::insert_re_balanceo_dcha(NodoAVL<Key>* &nodo) {
                 rotacion_DD(nodo);
             } else {
                 rotacion_DI(nodo);
-                crece = false;
+                
             } 
+            crece = false;
             break;
     }
 
@@ -233,7 +233,6 @@ void AVL<Key>::insert_re_balanceo_dcha(NodoAVL<Key>* &nodo) {
 
 template<class Key>
 bool AVL<Key>::eliminar (Key k) {
-    std::cout << "PRUEBA " << "NIVEL AVL" << std::endl;
 
     if (ABB<Key>::buscar(k)) {
         return false;

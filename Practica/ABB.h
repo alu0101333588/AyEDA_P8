@@ -6,6 +6,9 @@
 
 #include "NodoAVL.h"
 
+template<class Key>
+class AB;
+
 
 template<class Key>
 class ABB : public AB<Key> {
@@ -27,7 +30,6 @@ class ABB : public AB<Key> {
 
 template<class Key>
 bool ABB<Key>::eliminar (Key& k) {
-    std::cout << "PRUEBA. NIVEL ABB" << std::endl;
     if (AB<Key>::getRaiz() == NULL || !buscar(k)){
         return false;
     } 
@@ -100,7 +102,6 @@ bool ABB<Key>::balanceadoRama(NodoB<Key> *nodo){
 
 template<class Key>
 bool ABB<Key>::insertar (const Key& k) {
-    std::cout << "PRUEBA. NIVEL ABB" << std::endl;
     if (buscar(k)) {
         return false;
     }
