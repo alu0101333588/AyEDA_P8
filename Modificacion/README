@@ -1,0 +1,3 @@
+Formas de compilar:
+1 ) Sin impresión de traza: g++ main.cc
+2 ) Con impresión de traza: g++ main.cc -D traza
