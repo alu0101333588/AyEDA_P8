@@ -2,10 +2,13 @@
 #include "ABE.h"
 #include "ABB.h"
 #include "AVL.h"
+#include "dummy.h"
 
 // Para compilar: g++ main.cc -D traza 
 
-using Key = int;
+using Key = Dummy;
+
+unsigned Dummy::Contador_;
 
 int main() {
     int opcion = -1;
@@ -57,6 +60,7 @@ int main() {
         std::cout << "[3] Eliminar clave" << std::endl;
         std::cout << "[4] Mostrar árbol inorden" << std::endl;
         std::cout << "[5] Impresión por niveles" << std::endl;
+        std::cout << "[6] Modificación clase" << std::endl;
         std::cout << "-------------------------" << std::endl;
 
         std::cin >> opcion;
@@ -101,6 +105,52 @@ int main() {
         
         case 5:
             std::cout << arbol << std::endl;
+            break;
+
+        case 6:
+            AB<Key>* arbol1;
+            AB<Key>* arbol2;
+            arbol1 = new ABB<Key>;
+            arbol2 = new AVL<Key>;
+            std::cout << "INSERCIÓN: " << std::endl;
+            for (int i = 0; i < 1000; i++) { // Generar
+                Dummy h = rand() % 5000;
+                arbol1->insertar(h);
+                arbol2->insertar(h);
+                
+                std::cout << "[" << h << "] ";
+            }
+            std::cout << std::endl << "BUSQUEDA:" << std::endl;
+            Dummy::Contador_ = 0;
+            for (int i = 0; i < 50; i++) { // Buscar
+                Dummy h = rand() % 5000;
+                Dummy::Contador_ = 0;
+                if (arbol1->buscar(h)) {
+                    std::cout << "(ABB) Elemento: " << h << ". Contador: " << Dummy::Contador_ << std::endl;
+                }
+                Dummy::Contador_ = 0;
+                if (arbol2->buscar(h)) {
+                    std::cout << "(AVL) Elemento: " << h << ". Contador: " << Dummy::Contador_ << std::endl;
+                }
+            }
+            std::cout << "ELIMINACIÓN:" << std::endl;
+            for (int i = 0; i < 100; i++) { // Eliminar
+                Dummy h = rand() % 5000;
+                Dummy::Contador_ = 0;
+                if (arbol1->buscar(h)) {
+                    std::cout << "(ABB) Eliminar: " << h << ". Contador: " << Dummy::Contador_ << std::endl;
+                    arbol1->eliminar(h);
+                }
+                Dummy::Contador_ = 0;
+                if (arbol2->buscar(h)) {
+                    std::cout << "(AVL) Eliminar: " << h << ". Contador: " << Dummy::Contador_ << std::endl;
+                    arbol2->eliminar(h);
+                }
+            }
+            /*std::cout << "Árbol final" << std::endl;
+            std::cout << arbol1 << std::endl;
+            std::cout << "******************************************" << std::endl;
+            std::cout << arbol2 << std::endl;*/
             break;
         default:
             break;
